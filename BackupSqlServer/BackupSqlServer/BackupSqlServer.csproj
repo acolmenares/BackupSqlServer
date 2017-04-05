@@ -29,6 +29,30 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Duplicati.Library.Backend.CloudFiles">
+      <HintPath>..\..\lib\Duplicati.Library.Backend.CloudFiles.dll</HintPath>
+    </Reference>
+    <Reference Include="Duplicati.Library.Backend.OneDrive">
+      <HintPath>..\..\lib\Duplicati.Library.Backend.OneDrive.dll</HintPath>
+    </Reference>
+    <Reference Include="Duplicati.Library.Backend.SharePoint">
+      <HintPath>..\..\lib\Duplicati.Library.Backend.SharePoint.dll</HintPath>
+    </Reference>
+    <Reference Include="Duplicati.Library.Interface">
+      <HintPath>..\..\lib\Duplicati.Library.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="Duplicati.Library.Localization">
+      <HintPath>..\..\lib\Duplicati.Library.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Duplicati.Library.Utility">
+      <HintPath>..\..\lib\Duplicati.Library.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client">
+      <HintPath>..\..\lib\Microsoft.SharePoint.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SharePoint.Client.Runtime">
+      <HintPath>..\..\lib\Microsoft.SharePoint.Client.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Configuration" />
