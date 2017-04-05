@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO.Compression;
 
 namespace BackupSqlServer
 {
@@ -44,8 +45,11 @@ namespace BackupSqlServer
 			var backupFileName = String.Format("{0}{1}-{2}.bak",
 				backupFolder, sqlConStrBuilder.InitialCatalog,
 				DateTime.Now.ToString("yyyyMMdd-HHmmss"));
-
-			System.IO.File.Move(tempBackupFileName, backupFileName);
+            using(ZipArchive zip = ZipFile.Open(string.Format("{0}.zip", backupFileName), ZipArchiveMode.Create))
+            {
+                zip.CreateEntryFromFile(tempBackupFileName, System.IO.Path.GetFileName(backupFileName));
+            }
+			System.IO.File.Delete(tempBackupFileName);
 		}
 	}
 }
