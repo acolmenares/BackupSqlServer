@@ -38,9 +38,19 @@ namespace BackupSqlServer
 		{
 			var connectionString = ConfigurationManager.ConnectionStrings["ConnString"].ConnectionString;
 
-			// read backup folder from config file ("C:/temp/")
-			var tempBackupfolder = System.IO.Directory.GetCurrentDirectory()+System.IO.Path.DirectorySeparatorChar.ToString();
-			var backupFolder = ConfigurationManager.AppSettings["BackupFolder"];
+            // read backup folder from config file ("C:/temp/")
+
+            var tempBackupfolder = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"tmp")+ System.IO.Path.DirectorySeparatorChar.ToString(); 
+            if(! System.IO.Directory.Exists(tempBackupfolder))
+            {
+                System.IO.Directory.CreateDirectory(tempBackupfolder);
+            }
+
+
+            var crashPlanFolder = ConfigurationManager.AppSettings["CrashPlanFolder"];
+            var crashPlanFileName = ConfigurationManager.AppSettings["CrashPlanFileName"];
+
+            var backupFolder = ConfigurationManager.AppSettings["BackupFolder"];
 
 			var sqlConStrBuilder = new SqlConnectionStringBuilder(connectionString);
 
@@ -85,6 +95,21 @@ namespace BackupSqlServer
                 backend.Put(System.IO.Path.GetFileName(tmpZipfile), tmpZipfile);
             }
             catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            //
+
+            var crashPlanFileZip = String.Format("{0}{1}-{2}.sql.zip",
+                                             crashPlanFolder, crashPlanFileName,
+                                             DateTime.Now.ToString("yyyyMM"));
+
+            try
+            {
+                Console.WriteLine("copiando  el zip file {0} :  {1} ", tmpZipfile, crashPlanFileZip);
+                System.IO.File.Copy(tmpZipfile, crashPlanFileZip, overwrite: true);
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
